@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Post;
+use Spatie\YamlFrontMatter\YamlFrontMatter;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,24 +16,36 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view ('posts');
+    $posts = Post::all();
+    
+
+    // $posts = array_map(function($file){
+    //     $document = YamlFrontMatter::parseFile($file);
+    //     return new Post(
+    //         $document->title,
+    //         $document->excerpt,
+    //         $document->date,
+    //         $document->body(),
+    //         $document->slug
+    //     );
+    // },files);
+
+ 
+    // ddd($posts);
+
+    // $posts = Post::all();
+
+    return view ('posts',[
+        'posts' => $posts
+    ]);
 });
 
 Route::get('posts/{post}', function ($slug) {
 
-    $path = __DIR__."/../resources/posts/{$slug}.html";
+    $post = Post::find($slug);
 
-    
-    if(!file_exists($path)){
-
-        return redirect('/');
-    }
-
-    $post = cache()->remember("posts.{slug}", 1200 , fn()=>file_get_contents($path));
-
-    // $post = file_get_contents($path);
-
-    return view ('post',[
+    return view('post',[
         'post' => $post
     ]);
+    
 })->where('post','[A-z_\-]+');

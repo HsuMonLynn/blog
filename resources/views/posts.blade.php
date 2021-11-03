@@ -9,17 +9,13 @@
     <script src="/app.js"></script>
 </head>
 <body>
-    <article>
-        <h1><a href="/posts/my-first-post"> My First Posts</a></h1>
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Assumenda, eum at earum fuga in a sequi dolorum minima amet corrupti harum numquam. Maiores tenetur consequatur magni, reprehenderit quia facilis eligendi!</p>
-    </article>
-    <article>
-        <h1><a href="/posts/my-second-post">My Second Posts</a></h1>
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Assumenda, eum at earum fuga in a sequi dolorum minima amet corrupti harum numquam. Maiores tenetur consequatur magni, reprehenderit quia facilis eligendi!</p>
-    </article>
-    <article>
-        <h1><a href="/posts/my-third-post">My Third Posts</a></h1>
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Assumenda, eum at earum fuga in a sequi dolorum minima amet corrupti harum numquam. Maiores tenetur consequatur magni, reprehenderit quia facilis eligendi!</p>
-    </article>
+    <?php foreach ($posts as $post):?> 
+        <article>
+            <a href="/posts/<?= $post->slug; ?>">
+                <h1><?= $post->title; ?></h1>
+            </a>
+            <div><?= $post->body; ?></div>
+        </article>
+    <?php endforeach; ?>
 </body>
 </html>
