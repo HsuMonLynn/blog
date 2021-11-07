@@ -16,18 +16,17 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 */
 
 Route::get('/', function () {
-    $posts = Post::all();
-
+    
     return view ('posts',[
-        'posts' => $posts
+        'posts' => Post::all()
+ 
     ]);
 });
 
-Route::get('posts/{post}', function ($slug) {
+Route::get('posts/{post}', function ($id) {
 
-    $post = Post::findOrFail($slug);
     return view('post',[
-        'post' => $post
+        'post' => Post::findOrFail($id)
     ]);
     
 });
